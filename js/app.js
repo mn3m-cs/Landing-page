@@ -16,19 +16,25 @@ sections.forEach(section =>{
   navList.appendChild(navItem);
 })
 
-// Initialize Intersection Observer API
+// Initialize Intersection Observer API, we uses this API to know which sections is visible in the view port ( asynchronously)
+// IntersectionObserver()  takes options (circumstances to execute), and callback function to execute at circumstances.
 const options = {
   root: null,
   rootMargin: "0px",
-  threshold: 0.6,
+  threshold: 0.6, // indicate at what percentage of the target's visibility the observer's callback should be executed
 };
 
+// this code snippet from MDN, exmaple as  how to write observer callback
+//https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
 const handleIntersect = (entries) => {
   entries.forEach((entry) => {
+    elemID = entry.target.id //DRY, use Event Delegation
+    
     const navListElement = document.querySelector(
-      `.menu__link[data-link='${entry.target.id}']`
-    );
+      `[data-link='${elemID}']`);  //get the id of the element 
+
     const section = document.getElementById(entry.target.id);
+    
     if (entry.isIntersecting) {
       navListElement.classList.add("active");
     } else {
