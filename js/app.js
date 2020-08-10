@@ -31,13 +31,13 @@ const handleIntersect = (entries) => {
     elemID = entry.target.id //DRY, use Event Delegation
     
     const navListElement = document.querySelector(
-      `[data-link='${elemID}']`);  //get the id of the element 
+      `[data-link='${elemID}']`);  //get the id of the navbar element
 
-    const section = document.getElementById(entry.target.id);
+    const section = document.getElementById(entry.target.id); // id of the section
     
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting) { // if the section intesect the viewport by at least .6 (threshold) --> add active class to current navbar element.
       navListElement.classList.add("active");
-    } else {
+    } else { // if not intesecting remove active class
       if (navListElement.classList.contains("active")) {
         navListElement.classList.remove("active");
       }
