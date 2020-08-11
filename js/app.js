@@ -37,9 +37,13 @@ const handleIntersect = (entries) => {
     
     if (entry.isIntersecting) { // if the section intesect the viewport by at least .6 (threshold) --> add active class to current navbar element.
       navListElement.classList.add("active");
+      section.classList.add('active');
     } else { // if not intesecting remove active class
       if (navListElement.classList.contains("active")) {
         navListElement.classList.remove("active");
+      }
+      if (section.classList.contains("active")) {
+        section.classList.remove("active");
       }
     }
   });
@@ -50,4 +54,23 @@ sections.forEach(section => {
   observer.observe(section);
 });
 
-// smooth scrolling in css
+// scrolling
+/*
+To use:
+Add the below to the Click Event Listener
+PreventDefault should be present.
+scroll(), scrollBy(), and scrollIntoView() are all acceptable.
+*/
+navList.addEventListener('click',element =>{
+  element.preventDefault()
+  let nav = element.target.hasAttribute('data-link')
+  // if target we click is navbar element --> has attribute 'data-link'
+  if (nav){
+    nav = element.target;
+  // else we get the navbar itself
+  }else{
+    nav= element.target.parentElement;
+  }
+  const scrollTo = document.getElementById(nav.dataset.link);
+  scrollTo.scrollIntoView({block: 'center', behavior: 'smooth'})
+})
